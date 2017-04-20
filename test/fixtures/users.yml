@@ -4,6 +4,12 @@ michael:
   password_digest: <%= User.digest('password') %>
   admin: true
 
+steffan:
+  name: Steffan
+  email: steffan990@gmail.com
+  password_digest: <%= User.digest('password') %>
+  admin: true
+
 archer:
   name: Sterling Archer
   email: duchess@example.gov
