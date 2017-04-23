@@ -1,10 +1,16 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :create]
   before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
+  before_action :admin_user,     only: [:destroy, :edit, :update, :create]
 
   def index
     @users = User.paginate(page: params[:page])
+    @user = User.all
+    if params[:search]
+     @user = User.search(params[:search]).order("created_at DESC")
+    else
+      @user = User.all.order('created_at DESC')
+    end
   end
 
   def show
@@ -18,8 +24,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      log_in @user
-      flash[:success] = "Welcome to the Health Care App!"
+      log_in @user unless current_user.admin?
+      flash[:success] = "Welcome to the Health Care App!" unless current_user.admin?
       redirect_to @user
     else
       render 'new'
@@ -27,6 +33,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+        @user = User.find(params[:id])
   end
   
   def destroy
@@ -47,7 +54,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password,
+      params.require(:user).permit(:name, :email, :address, :phone_no, :infection, :other_details, :password,
                                    :password_confirmation)
     end
 
@@ -65,7 +72,7 @@ class UsersController < ApplicationController
     # Confirms the correct user.
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
+      redirect_to(root_url) unless current_user?(@user)  unless current_user.admin?
     end
     
     # Confirms an admin user.

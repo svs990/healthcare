@@ -1,10 +1,13 @@
-<% provide(:title, 'All users') %>
-<h1>All users</h1>
+<% provide(:title, 'All patients') %>
+<h1>All Patients</h1>
+
+<div><%= link_to "Add Patient", signup_path, class: "btn btn-lg btn-primary" %></div>
 
 <%= will_paginate %>
 
 <ul class="users">
   <%= render @users %>
 </ul>
+
 
 <%= will_paginate %>

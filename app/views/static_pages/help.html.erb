@@ -1,6 +1,18 @@
-<% provide(:title, "Help") %>
-<h1>Help</h1>
+<% provide(:title, "Search") %>
+<h1>Search</h1>
 <p>
-  If you cant access your account try using the reset password function or contact us
-  from the contact page.
+  Search for patients in the database.
 </p>
+
+<form style="width:200px">
+  <%= form_tag(help_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search" %>
+  <%= submit_tag "Search" %>
+  <% end %>
+</form>
+
+<% if @user.present? %>
+  <%= render @user %>
+<% else %>
+  <p>There are no posts containing the term <%= params[:search] %>.</p>
+<% end %>
