@@ -15,7 +15,7 @@
       <%= f.label :address %>
       <%= f.text_field :address, class: 'form-control' %>
       
-      <%= f.label :phone_no %>
+      <%= f.label :phone_no, "Phone Number" %>
       <%= f.text_field :phone_no, class: 'form-control' %>
       
       <%= f.label :infection %>
@@ -24,11 +24,11 @@
       <%= f.label :other_details %>
       <%= f.text_field :other_details, class: 'form-control' %>
 
-      <%#= f.label :password %>
-      <%#= f.password_field :password, class: 'form-control' %>
+      <%= f.label :password, "Create Password" %>
+      <%= f.password_field :password, class: 'form-control' %>
 
-      <%#= f.label :password_confirmation, "Confirmation" %>
-      <%#= f.password_field :password_confirmation, class: 'form-control' %>
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
 
       <%= f.submit "Create", class: "btn btn-primary" %>
     <% end %>
